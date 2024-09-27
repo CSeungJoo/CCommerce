@@ -17,7 +17,18 @@ spring:
     redis:
       host: localhost
       port: 6379
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail_username}
+    password: ${mail_password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 2000
+          starttls:
+            enable: true
 logging:
   level:
     org.hibernate.sql: debug
@@ -28,3 +39,8 @@ jwt:
   secret: ${secret}
   expiration_time: ${expiration_time}
   refresh_expiration_time: ${refresh_expiration_time}
+
+default:
+  protocol: http
+  host: localhost
+  port: 8080

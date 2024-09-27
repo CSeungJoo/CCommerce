@@ -46,4 +46,7 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
