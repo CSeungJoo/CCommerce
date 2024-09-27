@@ -1,17 +1,20 @@
 package kr.cseungjoo.ccommerce.global.security.auth;
 
+import kr.cseungjoo.ccommerce.domain.model.Role;
+import kr.cseungjoo.ccommerce.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrincipalDetails implements UserDetails {
 
     private final String token;
     private final Collection<? extends GrantedAuthority> authorities;
-
     public PrincipalDetails(String token, Collection<String> roles) {
         this.token = token;
         this.authorities = roles.stream()
@@ -30,22 +33,22 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
