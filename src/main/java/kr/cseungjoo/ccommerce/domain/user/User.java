@@ -1,6 +1,7 @@
 package kr.cseungjoo.ccommerce.domain.user;
 
 import jakarta.persistence.*;
+import kr.cseungjoo.ccommerce.domain.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String role; // Example: "ROLE_USER", "ROLE_ADMIN"
+    @Column(nullable = false)
+    private String username;
+
+    private Role role; // Example: "ROLE_USER", "ROLE_ADMIN"
 
     private LocalDateTime createdAt;
 
