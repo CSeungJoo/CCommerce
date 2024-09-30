@@ -16,6 +16,7 @@ import kr.cseungjoo.ccommerce.global.redis.service.RedisService;
 import kr.cseungjoo.ccommerce.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -118,5 +119,15 @@ public class UserService {
         redisService.setData(accessToken, user.getId().toString());
 
         return new TokensDto(accessToken, refreshToken);
+    }
+
+    @Transactional
+    public User updateUser(String username) {
+        PrincipalDetails principal =  (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long userId = Long.valueOf(redisService.getData(principal.getToken()));
+        User user = getUserById(userId);
+        user.setUsername(username);
+
+        return userRepository.save(user);
     }
 }
