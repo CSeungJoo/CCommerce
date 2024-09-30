@@ -53,4 +53,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+    }
 }
