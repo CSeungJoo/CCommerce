@@ -8,10 +8,11 @@ import javax.security.auth.login.FailedLoginException;
 @Getter
 public enum ErrorCode {
 
-    ALREADY_USING_EMAIL("이미 사용중인 이메일 입니다.", HttpStatus.CONFLICT, "409"),
-    ALREADY_VALIDATION("이미 인증된 계정입니다.", HttpStatus.BAD_REQUEST, "400"),
-    LOGIN_FAILED("로그인에 실패하였습니다.", HttpStatus.UNAUTHORIZED, "401"),
-    EMAIL_NOT_FOUND("이메일이 존재하지 않습니다.", HttpStatus.NOT_FOUND, "404");
+    ALREADY_USING_EMAIL("이미 사용중인 이메일 입니다.", HttpStatus.CONFLICT, "1409"),
+    ALREADY_VALIDATION("이미 인증된 계정입니다.", HttpStatus.BAD_REQUEST, "1400"),
+    LOGIN_FAILED("로그인에 실패하였습니다.", HttpStatus.UNAUTHORIZED, "1401"),
+    EMAIL_NOT_FOUND("이메일이 존재하지 않습니다.", HttpStatus.NOT_FOUND, "1404"),
+    PRODUCT_NOT_FOUNT("상품을 찾을수 없습니다.", HttpStatus.NOT_FOUND, "2404");
 
 
     private final String msg;

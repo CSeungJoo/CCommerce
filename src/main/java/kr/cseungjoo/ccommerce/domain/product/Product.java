@@ -2,6 +2,7 @@ package kr.cseungjoo.ccommerce.domain.product;
 
 import jakarta.persistence.*;
 import kr.cseungjoo.ccommerce.domain.category.Category;
+import kr.cseungjoo.ccommerce.domain.product.dto.CreateProductDto;
 import kr.cseungjoo.ccommerce.domain.productImage.ProductImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,5 +56,13 @@ public class Product {
 
     public void setImages(List<ProductImage> images) {
         this.images = images;
+    }
+
+    public void updateData(CreateProductDto dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.price = dto.getPrice();
+        this.stock = dto.getStock();
+        this.category = dto.getCategory();
     }
 }
