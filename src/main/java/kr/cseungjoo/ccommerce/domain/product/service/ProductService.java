@@ -4,15 +4,20 @@ import kr.cseungjoo.ccommerce.domain.product.Product;
 import kr.cseungjoo.ccommerce.domain.product.dto.CreateProductDto;
 import kr.cseungjoo.ccommerce.domain.product.exception.ProductNotFoundException;
 import kr.cseungjoo.ccommerce.domain.product.repository.ProductRepository;
+import kr.cseungjoo.ccommerce.domain.product.specification.ProductSpecification;
 import kr.cseungjoo.ccommerce.domain.productImage.ProductImage;
 import kr.cseungjoo.ccommerce.domain.productImage.service.ProductImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -66,5 +71,15 @@ public class ProductService {
         Product product = getProductById(productId);
 
         productRepository.delete(product);
+    }
+
+    public Page<Product> searchProduct(String text, Pageable pageable) {
+        return productRepository.findAllByNameLikeIgnoreCase(text, pageable);
+    }
+
+    public Page<Product> searchProductWithOptions(String text, Long categoryId, int minPrice, int maxPrice, Pageable pageable) {
+        Specification<Product> specification = Specification.where(ProductSpecification.hasOptions(text, categoryId, minPrice, maxPrice));
+
+        return productRepository.findAll(specification, pageable);
     }
 }
