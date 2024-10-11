@@ -16,7 +16,8 @@ public enum ErrorCode {
     PRODUCT_NOT_FOUNT("상품을 찾을수 없습니다.", HttpStatus.NOT_FOUND, "2404"),
     //cart
     //cartItem
-    INSUFFICIENT_STOCK("구매 수량은 상품 수량보다 높을 수 없습니다.", HttpStatus.BAD_REQUEST, "4404");
+    CART_ITEM_NOT_FOUND("장바구니 안에 존재하지 않습니다.", HttpStatus.NOT_FOUND, "4404"),
+    INSUFFICIENT_STOCK("구매 수량은 상품 수량보다 높을 수 없습니다.", HttpStatus.BAD_REQUEST, "4400");
 
 
     private final String msg;

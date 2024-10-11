@@ -45,5 +45,8 @@ public class CartItem {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
 
