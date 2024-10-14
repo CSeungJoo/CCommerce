@@ -48,4 +48,8 @@ public class CartItemService {
 
         return cartItemRepository.save(cartItem);
     }
+
+    public void deleteCartItem(long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
 }
