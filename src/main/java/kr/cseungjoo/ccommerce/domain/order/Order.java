@@ -1,6 +1,7 @@
 package kr.cseungjoo.ccommerce.domain.order;
 
 import jakarta.persistence.*;
+import kr.cseungjoo.ccommerce.domain.model.OrderStatus;
 import kr.cseungjoo.ccommerce.domain.orderItem.OrderItem;
 import kr.cseungjoo.ccommerce.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public class Order {
 
     private int totalPrice;
 
-    private String status; // Example: "pending", "shipped", "completed"
+    private OrderStatus status; // Example: "pending", "shipped", "completed"
 
     private LocalDateTime createdAt;
 
@@ -48,5 +49,16 @@ public class Order {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }
 
