@@ -5,10 +5,7 @@ import kr.cseungjoo.ccommerce.domain.user.User;
 import kr.cseungjoo.ccommerce.domain.user.dto.LoginDto;
 import kr.cseungjoo.ccommerce.domain.user.dto.RegisterDto;
 import kr.cseungjoo.ccommerce.domain.user.dto.TokensDto;
-import kr.cseungjoo.ccommerce.domain.user.exception.AlreadyUsingEmailException;
-import kr.cseungjoo.ccommerce.domain.user.exception.AlreadyValidationException;
-import kr.cseungjoo.ccommerce.domain.user.exception.EmailNotFoundException;
-import kr.cseungjoo.ccommerce.domain.user.exception.LoginFailedException;
+import kr.cseungjoo.ccommerce.domain.user.exception.*;
 import kr.cseungjoo.ccommerce.domain.user.repository.UserRepository;
 import kr.cseungjoo.ccommerce.global.jwt.JwtService;
 import kr.cseungjoo.ccommerce.global.mail.MailService;
@@ -37,7 +34,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(
-                EmailNotFoundException::new
+                UserNotFoundException::new
         );
     }
 
@@ -80,7 +77,7 @@ public class UserService {
     public boolean alreadyUsingEmail(String email) {
         try {
             getUserByEmail(email);
-        }catch (UsernameNotFoundException e){
+        }catch (EmailNotFoundException e){
             return false;
         }
         return true;
