@@ -2,6 +2,7 @@ package kr.cseungjoo.ccommerce.domain.order.service;
 
 import kr.cseungjoo.ccommerce.domain.model.OrderStatus;
 import kr.cseungjoo.ccommerce.domain.order.Order;
+import kr.cseungjoo.ccommerce.domain.order.exception.OrderNotFoundException;
 import kr.cseungjoo.ccommerce.domain.order.repository.OrderRepository;
 import kr.cseungjoo.ccommerce.domain.orderItem.OrderItem;
 import kr.cseungjoo.ccommerce.domain.orderItem.service.OrderItemService;
@@ -28,6 +29,12 @@ public class OrderService {
     private final RedisService redisService;
     private final UserService userService;
     private final OrderItemService orderItemService;
+
+    public Order getOrder(long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(
+                OrderNotFoundException::new
+        );
+    }
     public Order createOrder(long productId, int quantity) {
         PrincipalDetails principal =  (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = Long.valueOf(redisService.getData(principal.getToken()));
@@ -50,4 +57,22 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public Order shippingOrder(long orderId) {
+        Order order = getOrder(orderId);
+
+        //payment
+
+        //complete
+        order.setStatus(OrderStatus.SHIPPING);
+
+        return orderRepository.save(order);
+    }
+
+    public Order completeOrder(long orderId) {
+        Order order = getOrder(orderId);
+
+        order.setStatus(OrderStatus.COMPLETED);
+
+        return orderRepository.save(order);
+    }
 }
