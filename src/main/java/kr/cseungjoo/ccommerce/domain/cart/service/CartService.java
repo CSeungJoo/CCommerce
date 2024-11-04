@@ -9,8 +9,12 @@ import kr.cseungjoo.ccommerce.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CartService {
 
@@ -18,10 +22,7 @@ public class CartService {
     private final UserService userService;
     private final RedisService redisService;
 
-    public Cart createCart() {
-
-        PrincipalDetails principal =  (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long userId = Long.valueOf(redisService.getData(principal.getToken()));
+    public Cart createCart(long userId) {
         User user = userService.getUserById(userId);
 
         Cart cart = Cart.builder()
@@ -29,5 +30,12 @@ public class CartService {
                 .build();
 
         return cartRepository.save(cart);
+    }
+
+    public Cart getCartByUser(long userId) {
+        User user = userService.getUserById(userId);
+
+        Optional<Cart> cartOpt = cartRepository.findByUser(user);
+        return cartOpt.orElseGet(() -> createCart(userId));
     }
 }
