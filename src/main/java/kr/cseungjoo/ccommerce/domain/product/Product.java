@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.cseungjoo.ccommerce.domain.category.Category;
 import kr.cseungjoo.ccommerce.domain.product.dto.CreateProductDto;
 import kr.cseungjoo.ccommerce.domain.productImage.ProductImage;
+import kr.cseungjoo.ccommerce.domain.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,6 +44,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> images;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 
     @PrePersist
     protected void onCreate() {
