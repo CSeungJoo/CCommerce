@@ -83,9 +83,7 @@ public class UserService {
         return true;
     }
 
-    public void sendValidationLink() {
-        PrincipalDetails principal = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        long userId = Long.parseLong(redisService.getData(principal.getToken()));
+    public void sendValidationLink(long userId) {
         User user = getUserById(userId);
 
         String encodingString = pwdEncoder.encode(user.getId() + user.getCreatedAt().toString());
@@ -119,12 +117,11 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(String username) {
-        PrincipalDetails principal =  (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long userId = Long.valueOf(redisService.getData(principal.getToken()));
+    public User updateUser(String username, long userId) {
         User user = getUserById(userId);
         user.setUsername(username);
 
         return userRepository.save(user);
     }
+
 }
