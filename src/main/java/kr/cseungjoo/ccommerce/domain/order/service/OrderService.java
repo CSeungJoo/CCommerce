@@ -13,6 +13,8 @@ import kr.cseungjoo.ccommerce.domain.user.service.UserService;
 import kr.cseungjoo.ccommerce.global.redis.service.RedisService;
 import kr.cseungjoo.ccommerce.global.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,5 +76,11 @@ public class OrderService {
         order.setStatus(OrderStatus.COMPLETED);
 
         return orderRepository.save(order);
+    }
+
+    public Page<Order> getOrders(long userId, Pageable pageable) {
+        User user = userService.getUserById(userId);
+
+        return orderRepository.findAllByUser(userId, pageable);
     }
 }
