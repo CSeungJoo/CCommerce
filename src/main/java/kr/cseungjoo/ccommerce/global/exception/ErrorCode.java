@@ -22,8 +22,10 @@ public enum ErrorCode {
     INSUFFICIENT_STOCK("구매 수량은 상품 수량보다 높을 수 없습니다.", HttpStatus.BAD_REQUEST, "44000"),
     //order
     ORDER_NOT_FOUND("주문을 찾을수 없습니다.", HttpStatus.NOT_FOUND, "44040"),
-    ORDER_CANCEL_FAIL_IN_TRANSIT("주문 취소를 실패 하였습니다. 이유: 이미 배송 시작함", HttpStatus.CONFLICT, "44090");
+    ORDER_CANCEL_FAIL_IN_TRANSIT("주문 취소를 실패 하였습니다. 이유: 이미 배송 시작함", HttpStatus.CONFLICT, "44090"),
     //orderItem
+    //review
+    REVIEW_NOT_FOUND("리뷰를 찾을수 없습니다.", HttpStatus.NOT_FOUND, "64040");
 
     private final String msg;
     private final HttpStatus status;

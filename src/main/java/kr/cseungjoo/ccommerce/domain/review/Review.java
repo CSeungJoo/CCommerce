@@ -2,6 +2,7 @@ package kr.cseungjoo.ccommerce.domain.review;
 
 import jakarta.persistence.*;
 import kr.cseungjoo.ccommerce.domain.product.Product;
+import kr.cseungjoo.ccommerce.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,15 @@ public class Review {
     private int score;
 
     @ManyToOne
+    @JoinColumn(name = "usersId", nullable = false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
     private Product product;
+
+    public void edit(String message, int score) {
+        this.message = message;
+        this.score = score;
+    }
 }
