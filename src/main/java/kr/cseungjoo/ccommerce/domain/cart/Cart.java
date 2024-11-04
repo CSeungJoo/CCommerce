@@ -6,6 +6,7 @@ import kr.cseungjoo.ccommerce.domain.user.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -41,4 +42,7 @@ public class Cart {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void clean() {
+        this.cartItems = Collections.EMPTY_LIST;
+    }
 }
