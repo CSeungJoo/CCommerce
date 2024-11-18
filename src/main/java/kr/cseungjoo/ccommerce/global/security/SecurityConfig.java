@@ -1,6 +1,5 @@
 package kr.cseungjoo.ccommerce.global.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.cseungjoo.ccommerce.global.jwt.Filter.JwtRequestFilter;
 import kr.cseungjoo.ccommerce.global.jwt.JwtService;
 import kr.cseungjoo.ccommerce.global.redis.service.RedisService;
@@ -30,6 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/users/register", "/users/login", "/users/logout").permitAll()
                         .anyRequest().authenticated()

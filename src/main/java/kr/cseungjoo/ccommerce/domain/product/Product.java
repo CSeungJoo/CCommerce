@@ -25,17 +25,22 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String name;
 
     @Column(length = 1000)
     private String description;
 
+    @Column
     private int price;
 
+    @Column
     private int stock;
 
+    @Column
     private LocalDateTime createdAt;
 
+    @Column
     private LocalDateTime updatedAt;
 
     @ManyToOne
